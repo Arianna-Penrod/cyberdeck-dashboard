@@ -643,54 +643,10 @@ async function loadWeather() {
     }
 
 
-    const url =
-        "https://api.open-meteo.com/v1/forecast" +
-
-        `?latitude=${LATITUDE}` +
-
-        `&longitude=${LONGITUDE}` +
-
-        "&current=" +
-        "temperature_2m," +
-        "apparent_temperature," +
-        "weather_code," +
-        "wind_speed_10m" +
-
-        "&daily=" +
-        "weather_code," +
-        "temperature_2m_max," +
-        "temperature_2m_min," +
-        "precipitation_probability_max," +
-        "moon_phase" +
-
-        "&temperature_unit=fahrenheit" +
-
-        "&wind_speed_unit=mph" +
-
-        "&forecast_days=7" +
-
-        "&timezone=auto";
-
-
     try {
 
-        let response =
-            await fetch(url);
-
-
-        if (!response.ok) {
-
-            const fallbackUrl =
-                url.replace(
-                    ",moon_phase",
-                    ""
-                );
-
-
-            response =
-                await fetch(fallbackUrl);
-
-        }
+        const response =
+            await fetch("/api/weather");
 
 
         if (!response.ok) {
@@ -1107,7 +1063,7 @@ async function getPokemonCount() {
 
     const response =
         await fetch(
-            "https://pokeapi.co/api/v2/pokemon-species?limit=1"
+            "/api/pokemon-count"
         );
 
 
@@ -1148,27 +1104,13 @@ async function loadPokemon(id) {
             "LOADING...";
 
 
-        const [
-            pokemonResponse,
-            speciesResponse
-        ] =
-            await Promise.all([
-
-                fetch(
-                    `https://pokeapi.co/api/v2/pokemon/${id}`
-                ),
-
-                fetch(
-                    `https://pokeapi.co/api/v2/pokemon-species/${id}`
-                )
-
-            ]);
+        const response =
+            await fetch(
+                `/api/pokemon/${id}`
+            );
 
 
-        if (
-            !pokemonResponse.ok ||
-            !speciesResponse.ok
-        ) {
+        if (!response.ok) {
 
             throw new Error(
                 "Pokemon request failed"
@@ -1177,12 +1119,16 @@ async function loadPokemon(id) {
         }
 
 
+        const data =
+            await response.json();
+
+
         const pokemon =
-            await pokemonResponse.json();
+            data.pokemon;
 
 
         const species =
-            await speciesResponse.json();
+            data.species;
 
 
 
