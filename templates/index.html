@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cyberdeck</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div id="sky-effects" aria-hidden="true"></div>
+
+    <div class="system-status" aria-live="polite">
+        <span id="status-clock">
+            --:--
+        </span>
+
+        <span class="status-separator">
+            //
+        </span>
+
+        <span id="battery-status">
+            BATTERY: CHECKING...
+        </span>
+
+        <span class="battery-meter status-battery-meter" aria-hidden="true">
+            <span id="battery-fill"></span>
+        </span>
+    </div>
+
+    <header>
+        <h1>CYBERDECK</h1>
+        <p class="subtitle">ARIANNA'S SUPER AWESOME DASHBOARD</p>
+    </header>
+
+
+    <main class="dashboard-grid">
+
+        <!-- DATE / TIME -->
+        <section class="card date-card">
+
+            <div class="card-header">
+                <span>01</span>
+                <h2>DATE // TIME</h2>
+            </div>
+
+            <p id="day" class="large-text">
+                LOADING...
+            </p>
+
+            <p id="date">
+                --/--/----
+            </p>
+
+            <p id="clock" class="clock">
+                --:--:--
+            </p>
+
+            <div
+                id="celestial-tracker"
+                class="celestial-tracker"
+                aria-live="polite"
+            >
+                <p id="celestial-label" class="celestial-label">
+                    MOON PHASE: LOADING
+                </p>
+
+                <p id="celestial-icon-label" class="icon-label">
+                    icon incoming for sun-rising-0600
+                </p>
+
+                <span
+                    id="celestial-icon"
+                    class="celestial-icon celestial-icon--sun"
+                    role="img"
+                    aria-label="Sun rising"
+                    title="Sun rising"
+                ></span>
+            </div>
+
+        </section>
+
+
+        <!-- WEATHER -->
+        <section class="card weather-card">
+
+    <div class="card-header">
+        <span>02</span>
+        <h2>WEATHER</h2>
+    </div>
+
+    <p id="weather-location" class="label">
+        LOCAL WEATHER
+    </p>
+
+    <div class="toggle-buttons">
+        <button id="today-button" class="toggle-button active">
+            [ TODAY ]
+        </button>
+
+        <button id="week-button" class="toggle-button">
+            [ 7 DAYS ]
+        </button>
+    </div>
+
+
+    <!-- TODAY VIEW -->
+    <div id="weather-today-view">
+
+        <div class="weather-current">
+
+            <div class="weather-icon-stack">
+
+                <p id="weather-icon-label" class="icon-label">
+                    icon incoming for unknown
+                </p>
+
+                <span
+                    id="weather-icon"
+                    class="pixel-weather-icon pixel-weather-icon--unknown pixel-weather-icon--large"
+                    role="img"
+                    aria-label="Loading weather"
+                    title="Loading weather"
+                ></span>
+
+            </div>
+
+            <p id="weather-temp" class="large-text">
+                --°
+            </p>
+
+        </div>
+
+        <p id="weather-description">
+            Loading weather...
+        </p>
+
+        <div class="weather-details">
+
+            <p>
+                FEELS:
+                <span id="weather-feels">--°</span>
+            </p>
+
+            <p>
+                HIGH:
+                <span id="weather-high">--°</span>
+            </p>
+
+            <p>
+                LOW:
+                <span id="weather-low">--°</span>
+            </p>
+
+            <p>
+                RAIN:
+                <span id="weather-rain">--%</span>
+            </p>
+
+            <p>
+                WIND:
+                <span id="weather-wind">-- mph</span>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- WEEK VIEW -->
+    <div id="weather-week-view" class="hidden">
+
+        <div id="week-forecast">
+            Loading forecast...
+        </div>
+
+    </div>
+
+</section>
+
+
+        <!-- POKEMON OF THE DAY -->
+        <section class="card pokemon-card">
+
+    <div class="card-header">
+        <span>03</span>
+        <h2>POKEMON // HOURLY</h2>
+    </div>
+
+    <div class="pokemon-content">
+
+        <div class="sprite-container">
+
+            <img
+                id="pokemon-sprite"
+                src=""
+                alt="Current Pokemon"
+            >
+
+        </div>
+
+        <div class="pokemon-info">
+
+            <p id="pokemon-number" class="label">
+                #----
+            </p>
+
+            <h3 id="pokemon-name">
+                LOADING...
+            </h3>
+
+            <p id="pokemon-types">
+                TYPE: ---
+            </p>
+
+            <p id="pokemon-description">
+                Accessing Pokédex...
+            </p>
+
+            <button id="new-pokemon-button">
+                [ NEW POKEMON ]
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+    </main>
+
+
+    <footer>
+        <span>CYBERDECK // NODE 01</span>
+        <span class="cursor">█</span>
+
+        <p class="credits">
+            Weather data: Open-Meteo // Pokémon data: PokéAPI
+        </p>
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

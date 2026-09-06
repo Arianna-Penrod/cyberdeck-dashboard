@@ -1,0 +1,1176 @@
+@font-face {
+    font-family: "Minecraft";
+    src: url("../assets/fonts/Minecraft.ttf") format("truetype");
+}
+
+
+/* -------------------------
+   GLOBAL
+------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --ink: #F8F2FF;
+    --muted-ink: #CDB4DB;
+    --dark: #070415;
+    --dark-soft: #120B2A;
+    --panel: rgba(12, 7, 30, 0.88);
+    --panel-soft: rgba(248, 242, 255, 0.08);
+    --icon-plate: rgba(7, 4, 21, 0.78);
+    --pink: #FF9FD6;
+    --peach: #FFC6A8;
+    --butter: #FFF0A3;
+    --mint: #B9FBC0;
+    --aqua: #98F5E1;
+    --sky: #A0C4FF;
+    --lilac: #CDB4DB;
+    --violet: #BDB2FF;
+    --line: rgba(248, 242, 255, 0.22);
+    --line-soft: rgba(248, 242, 255, 0.14);
+    --shadow: rgba(160, 196, 255, 0.22);
+    --rainbow: linear-gradient(
+        90deg,
+        var(--pink),
+        var(--peach),
+        var(--butter),
+        var(--mint),
+        var(--aqua),
+        var(--sky),
+        var(--violet)
+    );
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.035) 0,
+            rgba(255, 255, 255, 0.035) 2px,
+            transparent 2px,
+            transparent 8px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.025) 0,
+            rgba(255, 255, 255, 0.025) 2px,
+            transparent 2px,
+            transparent 8px
+        ),
+        linear-gradient(135deg, var(--dark), var(--dark-soft));
+    background-attachment: fixed;
+
+    color: var(--ink);
+
+    font-family: "Minecraft", monospace;
+
+    scrollbar-width: none;
+}
+
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+
+.system-status {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+
+    width: 320px;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+
+    color: var(--ink);
+
+    font-size: 10px;
+    letter-spacing: 1px;
+
+    z-index: 2;
+}
+
+
+#status-clock {
+    width: 100%;
+
+    color: var(--ink);
+
+    font-size: 42px;
+    line-height: 1;
+    text-align: right;
+    letter-spacing: 5px;
+
+    text-shadow:
+        3px 3px 0 rgba(255, 159, 214, 0.65),
+        6px 6px 0 rgba(160, 196, 255, 0.45);
+}
+
+
+.status-separator {
+    display: none;
+}
+
+
+.status-battery-meter {
+    width: 52px;
+    height: 12px;
+
+    padding: 2px;
+}
+
+
+#sky-effects {
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+.shooting-star {
+    --star-color: var(--sky);
+    --star-distance: 190px;
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    background: var(--star-color);
+
+    box-shadow:
+        -8px 8px 0 rgba(248, 242, 255, 0.5),
+        -16px 16px 0 rgba(248, 242, 255, 0.28),
+        -24px 24px 0 rgba(248, 242, 255, 0.14);
+
+    opacity: 0;
+
+    animation:
+        shooting-star steps(8) forwards;
+}
+
+
+@keyframes shooting-star {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate(0, 0);
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(
+                var(--star-distance),
+                calc(var(--star-distance) * -1)
+            );
+    }
+
+}
+
+
+header,
+main,
+footer {
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* CRT scanlines */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.04) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+
+    z-index: 1000;
+}
+
+
+/* -------------------------
+   HEADER
+------------------------- */
+
+header {
+    flex: 0 0 auto;
+
+    border-bottom: 3px solid transparent;
+    border-image: var(--rainbow) 1;
+
+    margin-bottom: 18px;
+    padding-right: 350px;
+    padding-bottom: 14px;
+}
+
+h1 {
+    margin: 0;
+
+    color: var(--ink);
+
+    font-size: 42px;
+    line-height: 1;
+
+    letter-spacing: 5px;
+
+    text-shadow:
+        3px 3px 0 rgba(255, 159, 214, 0.65),
+        6px 6px 0 rgba(160, 196, 255, 0.45);
+}
+
+.subtitle {
+    color: var(--muted-ink);
+
+    margin: 8px 0 0;
+
+    letter-spacing: 2px;
+}
+
+
+/* -------------------------
+   GRID
+------------------------- */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    grid-template-areas:
+        "date weather pokemon";
+
+    gap: 22px;
+
+    grid-auto-rows: 1fr;
+
+    align-items: stretch;
+
+    flex: 1;
+
+    min-height: 0;
+}
+
+
+/* -------------------------
+   CARDS
+------------------------- */
+
+.card {
+    border: 2px solid transparent;
+    border-image: var(--rainbow) 1;
+
+    height: 100%;
+
+    padding: 16px;
+
+    min-height: 0;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--panel),
+            rgba(20, 12, 45, 0.82)
+        );
+
+    box-shadow:
+        6px 6px 0 rgba(160, 196, 255, 0.16);
+}
+
+
+.date-card {
+    grid-area: date;
+
+    box-shadow:
+        6px 6px 0 rgba(255, 159, 214, 0.2);
+}
+
+
+.weather-card {
+    grid-area: weather;
+
+    box-shadow:
+        6px 6px 0 rgba(152, 245, 225, 0.2);
+}
+
+
+.pokemon-card {
+    grid-area: pokemon;
+
+    box-shadow:
+        6px 6px 0 rgba(205, 180, 219, 0.2);
+}
+
+
+.date-card .card-header span {
+    background: var(--dark);
+}
+
+
+.weather-card .card-header span {
+    background: var(--dark);
+}
+
+
+.pokemon-card .card-header span {
+    background: var(--dark);
+}
+
+
+.card-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border-bottom:
+        2px solid transparent;
+    border-image: var(--rainbow) 1;
+
+    margin-bottom: 14px;
+
+    padding-bottom: 8px;
+}
+
+
+.card-header span {
+    background: var(--dark);
+
+    color: var(--ink);
+
+    border: 2px solid transparent;
+    border-image: var(--rainbow) 1;
+
+    padding: 5px 7px;
+}
+
+
+h2 {
+    margin: 0;
+
+    color: var(--ink);
+
+    font-size: 16px;
+
+    letter-spacing: 2px;
+}
+
+
+/* -------------------------
+   DATE
+------------------------- */
+
+.large-text {
+    color: var(--ink);
+
+    font-size: 26px;
+}
+
+
+.clock {
+    color: var(--ink);
+
+    font-size: 30px;
+
+    margin-top: 22px;
+}
+
+
+.celestial-tracker {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+
+    margin-top: 16px;
+
+    padding-top: 12px;
+
+    border-top: 1px dashed rgba(248, 242, 255, 0.28);
+}
+
+
+.celestial-icon {
+    width: 82px;
+    height: 74px;
+}
+
+
+.celestial-label {
+    margin: 0;
+
+    color: var(--muted-ink);
+
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+
+.battery-meter {
+    width: 100%;
+    height: 18px;
+
+    padding: 3px;
+
+    background: rgba(7, 4, 21, 0.74);
+
+    border: 2px solid transparent;
+    border-image: var(--rainbow) 1;
+}
+
+
+#battery-fill {
+    display: block;
+
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--pink),
+            var(--peach),
+            var(--butter),
+            var(--mint),
+            var(--aqua),
+            var(--sky),
+            var(--violet)
+        );
+
+    transition:
+        width 300ms steps(6);
+}
+
+
+#battery-status {
+    margin: 0;
+
+    color: var(--muted-ink);
+
+    font-size: inherit;
+    line-height: 1.5;
+}
+
+
+.system-status .status-battery-meter {
+    width: 52px;
+    height: 12px;
+
+    padding: 2px;
+}
+
+
+/* -------------------------
+   WEATHER
+------------------------- */
+
+.label {
+    color: var(--ink);
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+}
+
+
+.weather-details {
+    margin-top: 20px;
+
+    border-top:
+        1px dashed rgba(248, 242, 255, 0.28);
+
+    padding-top: 10px;
+}
+
+
+.weather-details span {
+    color: var(--ink);
+}
+
+
+.weather-current {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+
+.weather-icon-stack,
+.forecast-icon-stack {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+
+.weather-current .pixel-weather-icon {
+    width: 82px;
+    height: 74px;
+
+    filter:
+        drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.5));
+}
+
+
+.weather-current .pixel-weather-icon::before {
+    top: 8px;
+    left: 10px;
+
+    z-index: 1;
+}
+
+
+.weather-current .pixel-weather-icon::after {
+    top: 8px;
+    left: 10px;
+
+    z-index: 2;
+}
+
+
+.weather-current .pixel-weather-icon {
+    background:
+        linear-gradient(
+            135deg,
+            var(--icon-plate),
+            rgba(18, 11, 42, 0.9)
+        );
+}
+
+
+.weather-current .large-text {
+    margin: 0;
+}
+
+
+.pixel-weather-icon {
+    --p: 4px;
+    --sun: var(--butter);
+    --cloud: var(--lilac);
+    --cloud-shadow: var(--violet);
+    --rain: var(--aqua);
+    --snow: var(--sky);
+    --storm: var(--pink);
+    --p0: 0px;
+    --p1: var(--p);
+    --p2: calc(var(--p1) + var(--p));
+    --p3: calc(var(--p2) + var(--p));
+    --p4: calc(var(--p3) + var(--p));
+    --p5: calc(var(--p4) + var(--p));
+    --p6: calc(var(--p5) + var(--p));
+    --p7: calc(var(--p6) + var(--p));
+    --p8: calc(var(--p7) + var(--p));
+    --p9: calc(var(--p8) + var(--p));
+    --p10: calc(var(--p9) + var(--p));
+    --p11: calc(var(--p10) + var(--p));
+    --p12: calc(var(--p11) + var(--p));
+    --p13: calc(var(--p12) + var(--p));
+    --p14: calc(var(--p13) + var(--p));
+
+    position: relative;
+
+    display: inline-block;
+
+    width: var(--p14);
+    height: var(--p12);
+
+    flex: 0 0 auto;
+
+    image-rendering: pixelated;
+}
+
+
+.pixel-weather-icon::before,
+.pixel-weather-icon::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: var(--p);
+    height: var(--p);
+
+    background: transparent;
+}
+
+
+.pixel-weather-icon--large {
+    --p: 5px;
+}
+
+
+.pixel-weather-icon--small {
+    --p: 2px;
+}
+
+
+.pixel-weather-icon--sun::before {
+    box-shadow:
+        var(--p6) var(--p0) 0 var(--sun),
+        var(--p6) var(--p1) 0 var(--sun),
+        var(--p2) var(--p2) 0 var(--sun),
+        var(--p5) var(--p2) 0 var(--sun),
+        var(--p6) var(--p2) 0 var(--sun),
+        var(--p7) var(--p2) 0 var(--sun),
+        var(--p10) var(--p2) 0 var(--sun),
+        var(--p4) var(--p3) 0 var(--sun),
+        var(--p5) var(--p3) 0 var(--sun),
+        var(--p6) var(--p3) 0 var(--sun),
+        var(--p7) var(--p3) 0 var(--sun),
+        var(--p8) var(--p3) 0 var(--sun),
+        var(--p3) var(--p4) 0 var(--sun),
+        var(--p4) var(--p4) 0 var(--sun),
+        var(--p5) var(--p4) 0 var(--sun),
+        var(--p6) var(--p4) 0 var(--sun),
+        var(--p7) var(--p4) 0 var(--sun),
+        var(--p8) var(--p4) 0 var(--sun),
+        var(--p9) var(--p4) 0 var(--sun),
+        var(--p4) var(--p5) 0 var(--sun),
+        var(--p5) var(--p5) 0 var(--sun),
+        var(--p6) var(--p5) 0 var(--sun),
+        var(--p7) var(--p5) 0 var(--sun),
+        var(--p8) var(--p5) 0 var(--sun),
+        var(--p2) var(--p6) 0 var(--sun),
+        var(--p6) var(--p6) 0 var(--sun),
+        var(--p10) var(--p6) 0 var(--sun),
+        var(--p6) var(--p8) 0 var(--sun);
+}
+
+
+.pixel-weather-icon--cloud::before,
+.pixel-weather-icon--rain::before,
+.pixel-weather-icon--drizzle::before,
+.pixel-weather-icon--snow::before,
+.pixel-weather-icon--storm::before,
+.pixel-weather-icon--hail::before {
+    box-shadow:
+        var(--p4) var(--p3) 0 var(--cloud),
+        var(--p5) var(--p2) 0 var(--cloud),
+        var(--p6) var(--p2) 0 var(--cloud),
+        var(--p7) var(--p3) 0 var(--cloud),
+        var(--p3) var(--p4) 0 var(--cloud),
+        var(--p4) var(--p4) 0 var(--cloud),
+        var(--p5) var(--p4) 0 var(--cloud),
+        var(--p6) var(--p4) 0 var(--cloud),
+        var(--p7) var(--p4) 0 var(--cloud),
+        var(--p8) var(--p4) 0 var(--cloud),
+        var(--p2) var(--p5) 0 var(--cloud-shadow),
+        var(--p3) var(--p5) 0 var(--cloud),
+        var(--p4) var(--p5) 0 var(--cloud),
+        var(--p5) var(--p5) 0 var(--cloud),
+        var(--p6) var(--p5) 0 var(--cloud),
+        var(--p7) var(--p5) 0 var(--cloud),
+        var(--p8) var(--p5) 0 var(--cloud),
+        var(--p9) var(--p5) 0 var(--cloud-shadow),
+        var(--p3) var(--p6) 0 var(--cloud-shadow),
+        var(--p4) var(--p6) 0 var(--cloud-shadow),
+        var(--p5) var(--p6) 0 var(--cloud-shadow),
+        var(--p6) var(--p6) 0 var(--cloud-shadow),
+        var(--p7) var(--p6) 0 var(--cloud-shadow),
+        var(--p8) var(--p6) 0 var(--cloud-shadow);
+}
+
+
+.pixel-weather-icon--cloud::after {
+    box-shadow:
+        var(--p2) var(--p2) 0 var(--sun),
+        var(--p3) var(--p1) 0 var(--sun),
+        var(--p3) var(--p2) 0 var(--sun);
+}
+
+
+.pixel-weather-icon--rain::after {
+    box-shadow:
+        var(--p4) var(--p8) 0 var(--rain),
+        var(--p7) var(--p8) 0 var(--rain),
+        var(--p5) var(--p10) 0 var(--rain),
+        var(--p8) var(--p10) 0 var(--rain);
+}
+
+
+.pixel-weather-icon--drizzle::after {
+    box-shadow:
+        var(--p4) var(--p8) 0 var(--rain),
+        var(--p6) var(--p9) 0 var(--rain),
+        var(--p8) var(--p8) 0 var(--rain);
+}
+
+
+.pixel-weather-icon--snow::after {
+    box-shadow:
+        var(--p4) var(--p8) 0 var(--snow),
+        var(--p6) var(--p8) 0 var(--snow),
+        var(--p8) var(--p8) 0 var(--snow),
+        var(--p5) var(--p10) 0 var(--snow),
+        var(--p7) var(--p10) 0 var(--snow);
+}
+
+
+.pixel-weather-icon--storm::after {
+    box-shadow:
+        var(--p6) var(--p7) 0 var(--sun),
+        var(--p5) var(--p8) 0 var(--sun),
+        var(--p6) var(--p8) 0 var(--sun),
+        var(--p5) var(--p9) 0 var(--storm),
+        var(--p4) var(--p10) 0 var(--storm);
+}
+
+
+.pixel-weather-icon--hail::after {
+    box-shadow:
+        var(--p4) var(--p8) 0 var(--storm),
+        var(--p7) var(--p8) 0 var(--storm),
+        var(--p5) var(--p10) 0 var(--snow),
+        var(--p8) var(--p10) 0 var(--snow);
+}
+
+
+.pixel-weather-icon--fog::before {
+    box-shadow:
+        var(--p2) var(--p3) 0 var(--cloud),
+        var(--p3) var(--p3) 0 var(--cloud),
+        var(--p4) var(--p3) 0 var(--cloud),
+        var(--p5) var(--p3) 0 var(--cloud),
+        var(--p6) var(--p3) 0 var(--cloud),
+        var(--p4) var(--p5) 0 var(--rain),
+        var(--p5) var(--p5) 0 var(--rain),
+        var(--p6) var(--p5) 0 var(--rain),
+        var(--p7) var(--p5) 0 var(--rain),
+        var(--p8) var(--p5) 0 var(--rain),
+        var(--p1) var(--p7) 0 var(--cloud-shadow),
+        var(--p2) var(--p7) 0 var(--cloud-shadow),
+        var(--p3) var(--p7) 0 var(--cloud-shadow),
+        var(--p4) var(--p7) 0 var(--cloud-shadow),
+        var(--p5) var(--p7) 0 var(--cloud-shadow),
+        var(--p6) var(--p9) 0 var(--rain),
+        var(--p7) var(--p9) 0 var(--rain),
+        var(--p8) var(--p9) 0 var(--rain),
+        var(--p9) var(--p9) 0 var(--rain),
+        var(--p10) var(--p9) 0 var(--rain);
+}
+
+
+.pixel-weather-icon--unknown::before {
+    box-shadow:
+        var(--p5) var(--p2) 0 var(--storm),
+        var(--p6) var(--p2) 0 var(--storm),
+        var(--p7) var(--p3) 0 var(--storm),
+        var(--p6) var(--p4) 0 var(--storm),
+        var(--p6) var(--p6) 0 var(--storm),
+        var(--p6) var(--p8) 0 var(--storm);
+}
+
+
+/* -------------------------
+   ICON PLACEHOLDERS
+------------------------- */
+
+.celestial-icon,
+.pixel-weather-icon {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--ink);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--icon-plate),
+            rgba(18, 11, 42, 0.9)
+        );
+
+    font-size: 9px;
+    line-height: 1.35;
+    text-align: center;
+    text-transform: uppercase;
+
+    image-rendering: auto;
+}
+
+
+.icon-label {
+    margin: 0;
+
+    color: var(--muted-ink);
+
+    font-size: 7px;
+    line-height: 1.25;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+.celestial-icon::before,
+.celestial-icon::after,
+.pixel-weather-icon::before,
+.pixel-weather-icon::after {
+    display: none;
+}
+
+
+.celestial-icon {
+    width: 82px;
+    height: 74px;
+
+    padding: 4px;
+}
+
+
+.pixel-weather-icon {
+    padding: 3px;
+}
+
+
+.pixel-weather-icon--small {
+    width: 42px;
+    height: 28px;
+
+    font-size: 6px;
+    line-height: 1.2;
+}
+
+
+/* -------------------------
+   POKEMON
+------------------------- */
+
+.pokemon-card {
+    border-image: var(--rainbow) 1;
+}
+
+
+.pokemon-content {
+    display: flex;
+
+    gap: 20px;
+
+    align-items: center;
+}
+
+
+.sprite-container {
+    border: 2px solid transparent;
+    border-image: var(--rainbow) 1;
+
+    background: var(--panel-soft);
+
+    min-width: 130px;
+
+    text-align: center;
+}
+
+
+#pokemon-sprite {
+    width: 128px;
+
+    height: 128px;
+
+    object-fit: contain;
+
+    image-rendering: pixelated;
+}
+
+
+.pokemon-info {
+    min-width: 0;
+}
+
+
+#pokemon-name {
+    color: var(--ink);
+
+    font-size: 24px;
+
+    text-transform: uppercase;
+
+    margin: 8px 0;
+}
+
+
+#pokemon-types {
+    color: var(--ink);
+
+    font-size: 12px;
+}
+
+
+#pokemon-description {
+    color: var(--ink);
+
+    line-height: 1.45;
+
+    font-size: 12px;
+}
+
+
+/* -------------------------
+   FOOTER
+------------------------- */
+
+footer {
+    flex: 0 0 auto;
+
+    margin-top: 12px;
+
+    border-top:
+        2px solid transparent;
+    border-image: var(--rainbow) 1;
+
+    padding-top: 10px;
+
+    color: var(--ink);
+
+    font-size: 12px;
+}
+
+
+.cursor {
+    color: var(--pink);
+
+    animation:
+        blink 1s steps(1) infinite;
+}
+
+
+.credits {
+    color: var(--ink);
+
+    margin: 5px 0 0;
+
+    font-size: 9px;
+}
+
+
+@keyframes blink {
+
+    50% {
+        opacity: 0;
+    }
+
+}
+
+
+/* -------------------------
+   SMALL SCREENS
+------------------------- */
+
+@media (max-width: 900px) {
+
+    body {
+        padding: 14px;
+    }
+
+
+    header {
+        padding-right: 230px;
+    }
+
+
+    #status-clock {
+        font-size: 28px;
+    }
+
+
+    .system-status {
+        top: 12px;
+        right: 14px;
+
+        width: 210px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        grid-template-areas:
+            "date weather pokemon";
+
+        gap: 12px;
+    }
+
+}
+
+/* -------------------------
+   WEATHER TOGGLE
+------------------------- */
+
+.toggle-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+
+.toggle-button {
+    background: var(--panel-soft);
+
+    color: var(--ink);
+
+    border: 2px solid transparent;
+    border-image: var(--rainbow) 1;
+
+    padding: 8px 12px;
+
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
+
+.toggle-button:hover {
+    color: var(--ink);
+    background: rgba(152, 245, 225, 0.14);
+}
+
+
+.toggle-button.active {
+    background: rgba(255, 240, 163, 0.14);
+    border-image: var(--rainbow) 1;
+    color: var(--ink);
+}
+
+
+/* -------------------------
+   WEEK FORECAST
+------------------------- */
+
+.forecast-day {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1.5fr 1fr;
+
+    gap: 10px;
+
+    padding: 6px 0;
+
+    border-bottom:
+        1px dashed rgba(248, 242, 255, 0.18);
+
+    font-size: 11px;
+}
+
+
+.forecast-name {
+    color: var(--ink);
+}
+
+
+.forecast-condition {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--ink);
+}
+
+
+.forecast-condition .pixel-weather-icon {
+    background: rgba(7, 4, 21, 0.82);
+
+    filter:
+        drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.45));
+}
+
+
+.forecast-temp {
+    color: var(--ink);
+
+    text-align: right;
+}
+
+
+.forecast-rain {
+    color: var(--ink);
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+/* -------------------------
+   POKEMON BUTTON
+------------------------- */
+
+#new-pokemon-button {
+    margin-top: 15px;
+
+    background: var(--panel-soft);
+
+    color: var(--ink);
+
+    border: 2px solid transparent;
+    border-image: var(--rainbow) 1;
+
+    font-family: inherit;
+
+    padding: 10px 14px;
+
+    cursor: pointer;
+
+    box-shadow:
+        3px 3px 0 rgba(189, 178, 255, 0.28);
+}
+
+
+#new-pokemon-button:hover {
+    background: rgba(255, 159, 214, 0.16);
+
+    color: var(--ink);
+}
