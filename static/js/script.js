@@ -7,6 +7,9 @@ const LONGITUDE = -97.46300980772602;
 
 const LOCATION_NAME = "LOCAL";
 
+const WEATHER_REFRESH_INTERVAL =
+    15 * 60 * 1000;
+
 
 let weatherData = null;
 
@@ -1481,6 +1484,11 @@ function scheduleShootingStar() {
 // =======================================================
 
 loadWeather();
+
+setInterval(
+    loadWeather,
+    WEATHER_REFRESH_INTERVAL
+);
 
 loadBatteryStatus();
 
