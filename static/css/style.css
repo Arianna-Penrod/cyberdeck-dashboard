@@ -534,6 +534,17 @@ h2 {
 }
 
 
+.weather-last-updated {
+    margin-top: 6px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
 .weather-current {
     display: flex;
 

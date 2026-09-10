@@ -8,7 +8,7 @@ const LONGITUDE = -97.46300980772602;
 const LOCATION_NAME = "LOCAL";
 
 const WEATHER_REFRESH_INTERVAL =
-    15 * 60 * 1000;
+    5 * 60 * 1000;
 
 
 let weatherData = null;
@@ -665,6 +665,8 @@ async function loadWeather() {
             await response.json();
 
 
+        updateWeatherTimestamp();
+
         renderTodayWeather();
 
         renderWeekWeather();
@@ -684,6 +686,28 @@ async function loadWeather() {
             "WEATHER CONNECTION ERROR";
 
     }
+
+}
+
+
+function updateWeatherTimestamp() {
+
+    const now =
+        new Date();
+
+
+    document.getElementById(
+        "weather-last-updated"
+    ).textContent =
+        "UPDATED: " +
+        now.toLocaleTimeString(
+            undefined,
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
 
 }
 
